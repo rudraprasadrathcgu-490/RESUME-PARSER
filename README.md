@@ -17,8 +17,10 @@ An AI-powered web app that extracts resume details and generates a score.
 pip install -r requirements.txt  
 python app.py  
 
-## 🌐 Usage
-Open: http://127.0.0.1:5000/
+## 🌐 Live Demo
+👉 **Try it here:**  
+https://resume-parser-53ix.onrender.com
+
 
 ## 📊 Score Logic
 score = len(skills) * 10
