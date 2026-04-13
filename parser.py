@@ -8,34 +8,53 @@ skills_list = [
 
 def extract_text(file):
     text = ""
-    with pdfplumber.open(file) as pdf:
-        for page in pdf.pages:
-            text += page.extract_text() or ""
+    try:
+        with pdfplumber.open(file) as pdf:
+            for page in pdf.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text
+    except Exception as e:
+        print("PDF Error:", e)
+        return ""
+
     return text.lower()
 
 
 def extract_email(text):
-    pattern = r'\b[\w\.-]+@[\w\.-]+\.\w+\b'
-    matches = re.findall(pattern, text)
-    return matches[0] if matches else "Not Found"
+    try:
+        pattern = r'\b[\w\.-]+@[\w\.-]+\.\w+\b'
+        matches = re.findall(pattern, text)
+        return matches[0] if matches else "Not Found"
+    except:
+        return "Not Found"
 
 
 def extract_phone(text):
-    pattern = r'\+?\d[\d\s\-]{8,15}'
-    matches = re.findall(pattern, text)
-    return matches[0] if matches else "Not Found"
+    try:
+        pattern = r'\+?\d[\d\s\-]{8,15}'
+        matches = re.findall(pattern, text)
+        return matches[0] if matches else "Not Found"
+    except:
+        return "Not Found"
 
 
 def extract_skills(text):
     found = []
-    for skill in skills_list:
-        if skill in text:
-            found.append(skill.capitalize())
+    try:
+        for skill in skills_list:
+            if skill in text:
+                found.append(skill.capitalize())
+    except:
+        pass
     return found
 
 
 def extract_name(text):
-    lines = text.split("\n")
-    if lines:
-        return lines[0].title()
+    try:
+        lines = text.split("\n")
+        if lines:
+            return lines[0].title()
+    except:
+        pass
     return "Not Found"
