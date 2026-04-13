@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Resume Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body id="body" class="bg-gray-900 text-white flex items-center justify-center h-screen transition">
+
+    <div class="absolute top-5 right-5">
+        <button onclick="toggleMode()" class="bg-indigo-500 px-4 py-2 rounded">
+            🌙 / ☀️
+        </button>
+    </div>
+
+    <div class="bg-white/10 p-10 rounded-2xl backdrop-blur shadow-xl text-center w-96">
+
+        <h1 class="text-3xl font-bold mb-4">🚀 Resume Analyzer</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="resume" class="mb-4 w-full p-2 rounded text-black">
+            <button class="bg-indigo-500 px-4 py-2 rounded w-full">
+                Analyze Resume
+            </button>
+        </form>
+
+    </div>
+
+    <script>
+        function toggleMode() {
+            let body = document.getElementById("body");
+            body.classList.toggle("bg-gray-900");
+            body.classList.toggle("bg-white");
+            body.classList.toggle("text-white");
+            body.classList.toggle("text-black");
+        }
+    </script>
+
+</body>
+
+</html>
