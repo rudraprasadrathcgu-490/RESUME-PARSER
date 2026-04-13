@@ -3,7 +3,6 @@ from parser import extract_text, extract_email, extract_phone, extract_skills, e
 import os
 
 app = Flask(__name__)
-
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -14,9 +13,9 @@ if not os.path.exists(UPLOAD_FOLDER):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        file = request.files["resume"]
+        file = request.files.get("resume")
 
-        if file:
+        if file and file.filename != "":
             filepath = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
             file.save(filepath)
 
@@ -24,6 +23,7 @@ def index():
 
             skills = extract_skills(text)
 
+  
             score = len(skills) * 10
             if score > 100:
                 score = 100
@@ -40,6 +40,6 @@ def index():
 
     return render_template("index.html")
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
